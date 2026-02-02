@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FinSignal.Midlayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2d77d7096747a84b13f22bd4705efaa93b810840")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a6094cdde694cbf3f42a55d9a349a1c76fedc07d")]
 [assembly: System.Reflection.AssemblyProductAttribute("FinSignal.Midlayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FinSignal.Midlayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

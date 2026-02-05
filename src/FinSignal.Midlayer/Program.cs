@@ -31,7 +31,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); ne zaboraviti da otkomentarišeš kada ide sa lokala na prod.
 app.UseAuthorization();
 app.MapControllers();
 

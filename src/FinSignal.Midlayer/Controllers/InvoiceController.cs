@@ -24,10 +24,10 @@ public class InvoiceController : ControllerBase
 }
 
     [HttpPost]
-    public IActionResult Receive([FromBody] InvoiceDto invoice)
+    public async Task<IActionResult> Receive([FromBody] InvoiceDto invoice)
     {
         var correlationId = Guid.NewGuid().ToString();
-        _signals.RegisterInvoice(invoice);
+        await _signals.RegisterInvoice(invoice);
 
         var ev = new InvoiceReceivedEvent
         {
@@ -42,4 +42,22 @@ public class InvoiceController : ControllerBase
 
         return Ok(new { correlationId });
     }
+//    [HttpGet("{invoiceNumber}")]
+//public async Task<IActionResult> Get(string invoiceNumber)
+/*{
+    var status = await _repo.Get(invoiceNumber);
+
+    if (status == null)
+        return NotFound();
+
+    return Ok(new
+    {
+        status.InvoiceNumber,
+        status.InvoiceAmount,
+        status.PaidAmount,
+        status.Remaining,
+        status.State
+    });
+}*/
+
 }

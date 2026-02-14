@@ -8,17 +8,18 @@ namespace FinSignal.Midlayer.Controllers;
 [Route("signals")]
 public class SignalsController : ControllerBase
 {
-    private readonly InvoiceStatusStore _store;
+    private readonly IInvoiceStatusRepository _repo;
 
-    public SignalsController(InvoiceStatusStore store)
+    public SignalsController(IInvoiceStatusRepository repo)
     {
-        _store = store;
+        _repo = repo;
     }
 
     [HttpGet("invoices")]
-    public ActionResult<IEnumerable<InvoiceHealthDto>> GetAll()
+    public async Task<ActionResult<IEnumerable<InvoiceHealthDto>>> GetAll()
     {
-        var result = _store.All().Select(x => new InvoiceHealthDto
+        var all = await _repo.GetAllAsync();
+        var result = all.Select(x => new InvoiceHealthDto
         {
             InvoiceNumber = x.InvoiceNumber,
             InvoiceAmount = x.InvoiceAmount,
@@ -31,9 +32,9 @@ public class SignalsController : ControllerBase
     }
 
     [HttpGet("invoices/{invoiceNumber}")]
-    public ActionResult<InvoiceHealthDto> GetOne(string invoiceNumber)
+    public async Task<ActionResult<InvoiceHealthDto>> GetOne(string invoiceNumber)
     {
-        var status = _store.Get(invoiceNumber);
+        var status = await _repo.GetAsync(invoiceNumber);
 
         if (status == null)
             return NotFound();

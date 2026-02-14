@@ -25,10 +25,10 @@ public class PaymentController : ControllerBase
 }
 
     [HttpPost]
-    public IActionResult Receive([FromBody] PaymentDto payment)
+    public async Task<IActionResult> Receive([FromBody] PaymentDto payment)
     {
         var correlationId = Guid.NewGuid().ToString();
-        _signals.RegisterPayment(payment.PaymentReference, payment.Amount);
+        await _signals.RegisterPayment(payment.PaymentReference, payment.Amount);
 
         var ev = new PaymentReceivedEvent
         {

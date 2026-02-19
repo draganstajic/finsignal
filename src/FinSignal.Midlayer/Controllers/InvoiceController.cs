@@ -27,7 +27,7 @@ public class InvoiceController : ControllerBase
     public async Task<IActionResult> Receive([FromBody] InvoiceDto invoice)
     {
         var correlationId = Guid.NewGuid().ToString();
-        await _signals.RegisterInvoice(invoice);
+        await _signals.RegisterInvoice(correlationId, invoice);
 
         var ev = new InvoiceReceivedEvent
         {

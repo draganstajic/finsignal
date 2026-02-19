@@ -3,6 +3,7 @@ using System;
 using FinSignal.Midlayer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinSignal.Midlayer.Migrations
 {
     [DbContext(typeof(FinSignalDbContext))]
-    partial class FinSignalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260214231146_AddSignalEvents")]
+    partial class AddSignalEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,10 +30,6 @@ namespace FinSignal.Midlayer.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("AggregateId")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("CorrelationId")
                         .IsRequired()

@@ -5,6 +5,7 @@ using FinSignal.Midlayer.Signals;
 using FinSignal.Midlayer.Data;
 using Microsoft.EntityFrameworkCore;
 using FinSignal.Midlayer.Infrastructure;
+using FinSignal.Midlayer.Infrastructure.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,12 +33,21 @@ builder.Services.AddDbContext<FinSignalDbContext>(options =>
 // Reconciliation services
 builder.Services.AddSingleton<InMemoryLedger>();
 builder.Services.AddSingleton<MatchingEngine>();
+
+//Registration of EventStoreRepository
+builder.Services.AddScoped<IEventStoreRepository, EventStoreRepository>();
 // Add DbContext drajver za komunikaciju sa db
 /*builder.Services.AddDbContext<FinSignalDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("Default")
     )
 );*/
+// Registration of RabbitMQ connection factory
+
+
+builder.Services.Configure<RabbitMqSettings>(
+    builder.Configuration.GetSection("RabbitMQ"));
+    builder.Services.AddSingleton<RabbitMqPublisher>();
 
 
 var app = builder.Build();
